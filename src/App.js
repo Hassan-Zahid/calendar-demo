@@ -1,10 +1,50 @@
 import React from "react";
+import InvoiceModal from "./components/InvoiceModal"
 import { Eventcalendar, getJson, snackbar, Popup, Button, Input, Textarea, Switch, Datepicker, toast, setOptions, CalendarNav, SegmentedGroup, SegmentedItem, CalendarPrev, CalendarToday, CalendarNext } from '@mobiscroll/react';
 import "@mobiscroll/react/dist/css/mobiscroll.min.css";
 import { makeStyles } from "@material-ui/core/styles";
+import {
+    Button as MUIButton,
+    Tooltip,
+    Dialog,
+    Grid,
+    Box,
+    styled,
+    Fade,
+    withStyles,
+    CircularProgress,
+    DialogContent as MuiDialogContent,
+    DialogContentText,
+    DialogTitle,
+    Paper,
+    Chip,
+    Typography,
+  } from '@material-ui/core';
+  
 import {Modal} from "@material-ui/core";
 import './App.css';
 
+
+const AppointmentsHeader = styled(Box)({
+    display: 'flex',
+    backgroundColor: '#fdfdfd',
+    borderColor: '#ebedef',
+    borderImage: 'none',
+    borderStyle: 'solid solid none',
+    borderWidth: '3px 0px 0px',
+    color: 'inherit',
+    marginBottom: '0',
+    padding: '14px 15px 7px',
+    minHeight: '48px',
+    fontFamily: '"Lato", "Helvetica Neue", Helvetica, Arial, sans-serif',
+  });
+
+  const HeadingWrapper = styled(Typography)({
+    fontSize: '30px',
+    fontWeight: '100',
+    fontFamily: '"Lato", "Helvetica Neue", Helvetica, Arial, sans-serif',
+  });
+  
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -350,76 +390,81 @@ function App() {
     }
 
     return (
-      <div className="md-switching-view-cont">
-        <Eventcalendar
-          theme="ios" 
-          themeVariant="light"
-          dragToMove={true}
-          dragToResize={true}
-          data={myEvents}
-          view={view}
-          view={viewSettings}
-          clickToCreate="double"
-          dragToCreate={true}
-          selectedDate={mySelectedDate}
-          onSelectedDateChange={onSelectedDateChange}
-          onEventClick={onEventClick}
-          onEventCreated={onEventCreated}
-          onEventDeleted={onEventDeleted}
-          onEventUpdated={onEventUpdated}
-          renderHeader={customWithNavButtons}
-          height={750}
-          view={calView}
-        />
-        {/* <Popup
-            display="bottom"
-            fullScreen={true}
-            contentPadding={false}
-            headerText={headerText}
-            anchor={anchor}
-            buttons={popupButtons}
-            isOpen={isOpen}
-            onClose={onClose}
-            responsive={responsivePopup}
-        >
-            <div className="mbsc-form-group">
-                <Input label="Title" value={popupEventTitle} onChange={titleChange} />
-                <Textarea label="Description" value={popupEventDescription} onChange={descriptionChange} />
-            </div>
-            <div className="mbsc-form-group">
-                <Switch label="All-day" checked={popupEventAllDay} onChange={allDayChange} />
-                <Input ref={startRef} label="Starts" />
-                <Input ref={endRef} label="Ends" />
-                <Datepicker
-                    select="range"
-                    controls={controls}
-                    touchUi={true}
-                    startInput={start}
-                    endInput={end}
-                    showRangeLabels={false}
-                    responsive={responsiveOptions}
-                    onChange={dateChange}
-                    value={popupEventDate}
+        <div className="md-switching-view-cont">
+            <div>
+                <AppointmentsHeader>
+                    <HeadingWrapper className="title">Appointments</HeadingWrapper>
+                    <InvoiceModal/>
+                </AppointmentsHeader>
+                <Eventcalendar
+                theme="ios" 
+                themeVariant="light"
+                dragToMove={true}
+                dragToResize={true}
+                data={myEvents}
+                view={view}
+                view={viewSettings}
+                clickToCreate="double"
+                dragToCreate={true}
+                selectedDate={mySelectedDate}
+                onSelectedDateChange={onSelectedDateChange}
+                onEventClick={onEventClick}
+                onEventCreated={onEventCreated}
+                onEventDeleted={onEventDeleted}
+                onEventUpdated={onEventUpdated}
+                renderHeader={customWithNavButtons}
+                height={750}
+                view={calView}
                 />
-                <SegmentedGroup onChange={statusChange}>
-                    <SegmentedItem value="busy" checked={popupEventStatus === 'busy'}>Show as busy</SegmentedItem>
-                    <SegmentedItem value="free" checked={popupEventStatus === 'free'}>Show as free</SegmentedItem>
-                </SegmentedGroup>
-                {isEdit && <div className="mbsc-button-group">
-                    <Button className="mbsc-button-block" color="danger" variant="outline" onClick={onDeleteClick}>Delete event</Button>
-                </div>}
+                {/* <Popup
+                    display="bottom"
+                    fullScreen={true}
+                    contentPadding={false}
+                    headerText={headerText}
+                    anchor={anchor}
+                    buttons={popupButtons}
+                    isOpen={isOpen}
+                    onClose={onClose}
+                    responsive={responsivePopup}
+                >
+                    <div className="mbsc-form-group">
+                        <Input label="Title" value={popupEventTitle} onChange={titleChange} />
+                        <Textarea label="Description" value={popupEventDescription} onChange={descriptionChange} />
+                    </div>
+                    <div className="mbsc-form-group">
+                        <Switch label="All-day" checked={popupEventAllDay} onChange={allDayChange} />
+                        <Input ref={startRef} label="Starts" />
+                        <Input ref={endRef} label="Ends" />
+                        <Datepicker
+                            select="range"
+                            controls={controls}
+                            touchUi={true}
+                            startInput={start}
+                            endInput={end}
+                            showRangeLabels={false}
+                            responsive={responsiveOptions}
+                            onChange={dateChange}
+                            value={popupEventDate}
+                        />
+                        <SegmentedGroup onChange={statusChange}>
+                            <SegmentedItem value="busy" checked={popupEventStatus === 'busy'}>Show as busy</SegmentedItem>
+                            <SegmentedItem value="free" checked={popupEventStatus === 'free'}>Show as free</SegmentedItem>
+                        </SegmentedGroup>
+                        {isEdit && <div className="mbsc-button-group">
+                            <Button className="mbsc-button-block" color="danger" variant="outline" onClick={onDeleteClick}>Delete event</Button>
+                        </div>}
+                    </div>
+                </Popup> */}
+                {/* <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                    
+                >
+                    {body} */}
             </div>
-        </Popup> */}
-        <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
-            
-        >
-            {body}
-        </Modal>
-      </div>
+        </div>
     ); 
 }
 
