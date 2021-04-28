@@ -38,7 +38,7 @@ export default function InvoiceDetails(props) {
 
   return (
     <div className={classes.root}>
-      {selectedJob.invoice.amount > 0 && (
+      {/* {selectedJob.invoice.amount > 0 && (
         <Accordion
           expanded={expanded === 'panel1'}
           onChange={handleChange('panel1')}
@@ -61,7 +61,7 @@ export default function InvoiceDetails(props) {
             </Typography>
           </AccordionDetails>
         </Accordion>
-      )}
+      )} */}
 
       <Accordion
         expanded={expanded === 'panel2'}
@@ -76,7 +76,7 @@ export default function InvoiceDetails(props) {
             Total Invoiced Amount
           </Typography>
           <Typography className={classes.secondaryHeading}>
-            {selectedJob.invoices.invoiced_amount}
+            {/* {selectedJob.invoices.invoiced_amount} */}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -98,7 +98,7 @@ export default function InvoiceDetails(props) {
             Un-Invoiced Amount
           </Typography>
           <Typography className={classes.secondaryHeading}>
-            {selectedJob.invoices.uninvoiced_amount}
+            {/* {selectedJob.invoices.uninvoiced_amount} */}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -118,9 +118,9 @@ export default function InvoiceDetails(props) {
         >
           <Typography className={classes.heading}>Total Payement</Typography>
           <Typography className={classes.secondaryHeading}>
-            {Object.entries(selectedJob).length < 1
+            {/* {Object.entries(selectedJob).length < 1
               ? ''
-              : selectedJob.payments.totalPayments}
+              : selectedJob.payments.totalPayments} */}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -133,9 +133,9 @@ export default function InvoiceDetails(props) {
 
             <Grid item xs={5}>
               <Typography className={classes.secondaryHeading}>
-                {Object.entries(selectedJob).length < 1
+                {/* {Object.entries(selectedJob).length < 1
                   ? ''
-                  : selectedJob.payments.invoiced_payments}
+                  : selectedJob.payments.invoiced_payments} */}
               </Typography>
             </Grid>
             <Grid item xs={5}>
@@ -145,9 +145,9 @@ export default function InvoiceDetails(props) {
             </Grid>
             <Grid item xs={5}>
               <Typography className={classes.secondaryHeading}>
-                {Object.entries(selectedJob).length < 1
+                {/* {Object.entries(selectedJob).length < 1
                   ? ''
-                  : selectedJob.payments.individual_payments}
+                  : selectedJob.payments.individual_payments} */}
               </Typography>
             </Grid>
             <Typography className={classes.secondaryHeading}>

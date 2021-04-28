@@ -20,13 +20,14 @@ import {
     Chip,
     Typography,
   } from '@material-ui/core';
-  
+import Card from '@material-ui/core/Card';
 import {Modal} from "@material-ui/core";
 import './App.css';
 
 
 const AppointmentsHeader = styled(Box)({
     display: 'flex',
+    justifyContent: 'space-between',
     backgroundColor: '#fdfdfd',
     borderColor: '#ebedef',
     borderImage: 'none',
@@ -61,17 +62,24 @@ function getModalStyle() {
   };
 }
 
-const useStyles = makeStyles(theme => ({
-  paper: {
-    position: "absolute",
-    width: "400px",
-    height: "500px",
-    backgroundColor: theme.palette.background.paper,
-    // border: "2px",
-    // boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3)
-  }
-}));
+const useStyles = makeStyles({
+    root: {
+      minWidth: 500,
+      margin:30
+    },
+    bullet: {
+      display: "inline-block",
+      margin: "0 2px",
+      transform: "scale(0.8)"
+    },
+    title: {
+      fontSize: 14
+    },
+    pos: {
+      marginBottom: 12
+    }
+  });
+  
 
 
 setOptions({
@@ -149,14 +157,14 @@ function App() {
         setOpen(false);
     };
 
-    const body = (
-    <div style={modalStyle} className={classes.paper}>
-        <h2 id="simple-modal-title">Text in a modal</h2>
-        <p id="simple-modal-description">
-            Material UI Modal.
-        </p>
-    </div>
-    );
+    // const body = (
+    // <div style={modalStyle} className={classes.paper}>
+    //     <h2 id="simple-modal-title">Text in a modal</h2>
+    //     <p id="simple-modal-description">
+    //         Material UI Modal.
+    //     </p>
+    // </div>
+    // );
 
 
     const saveEvent = React.useCallback(() => {
@@ -391,7 +399,7 @@ function App() {
 
     return (
         <div className="md-switching-view-cont">
-            <div>
+            <Card className={classes.root} variant="outlined">
                 <AppointmentsHeader>
                     <HeadingWrapper className="title">Appointments</HeadingWrapper>
                     <InvoiceModal/>
@@ -414,6 +422,7 @@ function App() {
                 onEventUpdated={onEventUpdated}
                 renderHeader={customWithNavButtons}
                 height={750}
+                // width ={1550}
                 view={calView}
                 />
                 {/* <Popup
@@ -463,7 +472,7 @@ function App() {
                     
                 >
                     {body} */}
-            </div>
+            </Card>
         </div>
     ); 
 }

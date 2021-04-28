@@ -5,7 +5,6 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.4",
-    "alertify":"./node_modules/alertifyjs/build/alertify.min.js",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
     "@mobiscroll/react": "https://npm.mobiscroll.com/@mobiscroll/react-trial/-/react-trial-5.3.0.tgz",

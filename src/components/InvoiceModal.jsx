@@ -19,7 +19,6 @@ import {
 } from '@material-ui/core';
 
 import { JobStat } from './JobStat';
-
 import EditIcon from '@material-ui/icons/Edit';
 import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -38,7 +37,6 @@ const CustomActionBar = styled(Box)({
   justifyContent: 'flex-end',
 });
 
-
 const CircularProgressWrapper = styled(Box)({
   width: '100%',
   display: 'flex',
@@ -50,7 +48,9 @@ const NameWrapper = styled(Box)({
 });
 
 const MarginWrapper = styled(Box)({
-  height: 15,
+  height: 25,
+  textAlign: 'end',
+  marginBottom:'20px',
   width: '100%',
 });
 
@@ -70,6 +70,12 @@ const JobInvoiceTyp = styled(Typography)({
     backgroundColor: '#f5f5f5',
   },
 });
+
+const Paragraph = styled(Typography)({
+  fontSize: '50px',
+  float: 'right'
+});
+
 
 const EditBtnWrapper = styled(Typography)({
   cursor: 'pointer',
@@ -113,21 +119,9 @@ const StyledAlert = withStyles({
 
 const NewInvoiceBtn = withStyles({
   root: {
-    backgroundColor: '#1ab394',
-    borderColor: '#1ab394',
-    color: '#FFFFFF',
     fontSize: '13px',
-    marginRight: '5px',
-    display: 'inline-block',
-    border: '1px solid transparent',
-    padding: '6px 12px',
-    cursor: 'pointer',
     fontFamily: '"Lato", "Helvetica Neue", Helvetica, Arial, sans-serif',
-  '&:hover': {
-    backgroundColor: '#18a689',
-    borderColor: '#18a689',
-    color: '#FFFFFF'
-  },
+
   },
 })(Button);
 
@@ -275,22 +269,20 @@ export default function InvoiceModal(props) {
         </Tooltip>
       )}
 
-      {job_id && (
-        <JobInvoiceTyp onClick={handleClickOpen}>New Invoice</JobInvoiceTyp>
-      )}
+      
+        {/* <JobInvoiceTyp onClick={handleClickOpen}>New Invoice</JobInvoiceTyp> */}
 
-      {!invoice_id && !job_id && (
+      
         <NewInvoiceBtn
           variant="contained"
           color="primary"
           onClick={handleClickOpen}
         >
           <AddOutlinedIcon/>
-          Add an Appointment
+          Add An Appointment
         </NewInvoiceBtn>
-      )}
 
-      {open && (
+      
         <Dialog
           open={open}
           onClose={handleClose}
@@ -298,20 +290,19 @@ export default function InvoiceModal(props) {
           aria-labelledby="draggable-dialog-title"
         >
           <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
-            <NameWrapper> {title} </NameWrapper>
+            <NameWrapper>New Appointment</NameWrapper>
           </DialogTitle>
-          {loading ? (
-            <DialogContent>
+          
+            {/* <DialogContent>
               <CircularProgressWrapper>
                 <CircularProgress />
               </CircularProgressWrapper>
-            </DialogContent>
-          ) : (
+            </DialogContent> */}
             <>
               <DialogContent dividers>
                 <Grid container>
                   <JobStat
-                    label={'Jobs'}
+                    label={'Active lead'}
                     content={
                       <LiveSearch
                         selectedJob={selectedJob}
@@ -325,102 +316,41 @@ export default function InvoiceModal(props) {
                       />
                     }
                   />
-                  <MarginWrapper />
+                  <MarginWrapper>Leave blank to create an availability</MarginWrapper>
 
-                  {selectedJob && (
+                      
+
                     <React.Fragment>
-                      <JobStat
-                        label={'Customer Name'}
-                        content={
-                          selectedJob.contact &&
-                          `${selectedJob.contact.first_name} ${selectedJob.contact.last_name}`
-                        }
-                      />
-
-                      <JobStat
-                        label={'Proposal #'}
-                        content={selectedJob.proposal.number}
-                      />
-
-                      <JobStat
-                        label={'Proposal Amount'}
-                        content={selectedJob.proposal.amount}
-                      />
-
-                      <JobStat
-                        label={'Payments Received'}
-                        content={selectedJob.payments.totalPayments}
-                      />
-
-                      <JobStat
-                        label={'Previously Invoiced Amount'}
-                        content={selectedJob.invoices.invoiced_amount}
-                      />
-                      <JobStat
-                        label={'Un-Invoiced Amount'}
-                        content={selectedJob.invoices.uninvoiced_amount}
-                      />
-
-                      <JobStat
-                        label={'Job Status'}
-                        content={
-                          <Chip
-                            size="small"
-                            label={selectedJob.job_status}
-                            color="primary"
-                          />
-                        }
-                      />
-
-                      <DialogContentText />
-                      <InvoiceDetails selectedJob={selectedJob} />
-                      <Grid item xs={12}>
-                        <AlertWrapper>
-                          {warning && (
-                            <StyledAlert variant="filled" severity="warning">
-                              {warning}
-                            </StyledAlert>
-                          )}
-                        </AlertWrapper>
-                      </Grid>
                       <InvoiceForm
                         selectedJob={selectedJob}
                         setWarning={setWarning}
                         setSelectedJob={setSelectedJob}
                       />
                     </React.Fragment>
-                  )}
                 </Grid>
-                {selectedJob && (
                   <CustomActionBar>
-                    <Button onClick={handleClose} color="primary">
+                    <NewInvoiceBtn onClick={handleClose} color="primary">
                       Cancel
-                    </Button>
+                    </NewInvoiceBtn>
 
-                    {invoice_id ? (
-                      <Button
+                      {/* <NewInvoiceBtn
                         // onClick={handleSubmit}
                         color="primary"
                         variant="contained"
                       >
                         Update Invoice
-                      </Button>
-                    ) : (
-                      <Button
+                      </NewInvoiceBtn> */}
+                      <NewInvoiceBtn
                         // onClick={handleSubmit}
                         color="primary"
                         variant="contained"
                       >
-                        Send Invoice
-                      </Button>
-                    )}
+                        Save
+                      </NewInvoiceBtn>
                   </CustomActionBar>
-                )}
               </DialogContent>
             </>
-          )}
         </Dialog>
-      )}
     </ThemeProvider>
   );
 }
