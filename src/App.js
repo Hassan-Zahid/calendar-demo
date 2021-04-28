@@ -1,7 +1,37 @@
 import React from "react";
 import { Eventcalendar, getJson, snackbar, Popup, Button, Input, Textarea, Switch, Datepicker, toast, setOptions, CalendarNav, SegmentedGroup, SegmentedItem, CalendarPrev, CalendarToday, CalendarNext } from '@mobiscroll/react';
 import "@mobiscroll/react/dist/css/mobiscroll.min.css";
+import { makeStyles } from "@material-ui/core/styles";
+import {Modal} from "@material-ui/core";
 import './App.css';
+
+
+function rand() {
+  return Math.round(Math.random() * 20) - 10;
+}
+
+function getModalStyle() {
+  const top = 50 + rand();
+  const left = 50 + rand();
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`
+  };
+}
+
+const useStyles = makeStyles(theme => ({
+  paper: {
+    position: "absolute",
+    width: "400px",
+    height: "500px",
+    backgroundColor: theme.palette.background.paper,
+    // border: "2px",
+    // boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3)
+  }
+}));
 
 
 setOptions({
@@ -54,7 +84,7 @@ function App() {
     const [Events, setEvents] = React.useState([]);
     const [myEvents, setMyEvents] = React.useState(defaultEvents);
     const [tempEvent, setTempEvent] = React.useState(null);
-    const [isOpen, setOpen] = React.useState(false);
+    // const [isOpen, setOpen] = React.useState(false);
     const [isEdit, setEdit] = React.useState(false);
     const [anchor, setAnchor] = React.useState(null);
     const [start, startRef] = React.useState(null);
@@ -65,6 +95,28 @@ function App() {
     const [popupEventDate, setDate] = React.useState([]);
     const [popupEventStatus, setStatus] = React.useState('busy');
     const [mySelectedDate, setSelectedDate] = React.useState(now);
+
+    const classes = useStyles();
+  // getModalStyle is not a pure function, we roll the style only on the first render
+    const [modalStyle] = React.useState(getModalStyle);
+    const [open, setOpen] = React.useState(false);
+
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const body = (
+    <div style={modalStyle} className={classes.paper}>
+        <h2 id="simple-modal-title">Text in a modal</h2>
+        <p id="simple-modal-description">
+            Material UI Modal.
+        </p>
+    </div>
+    );
 
 
     const saveEvent = React.useCallback(() => {
@@ -160,7 +212,8 @@ function App() {
         // fill popup form with event data
         loadPopupForm(args.event);
         setAnchor(args.domEvent.target);
-        setOpen(true);
+        // setOpen(true);
+        handleOpen();
     }, [loadPopupForm]);
 
     const onEventCreated = React.useCallback((args) => {
@@ -170,7 +223,8 @@ function App() {
         loadPopupForm(args.event);
         setAnchor(args.target);
         // open the popup
-        setOpen(true);
+        // setOpen(true);
+        handleOpen();
     }, [loadPopupForm]);
 
     const onEventDeleted = React.useCallback((args) => {
@@ -317,7 +371,7 @@ function App() {
           height={750}
           view={calView}
         />
-        <Popup
+        {/* <Popup
             display="bottom"
             fullScreen={true}
             contentPadding={false}
@@ -355,7 +409,16 @@ function App() {
                     <Button className="mbsc-button-block" color="danger" variant="outline" onClick={onDeleteClick}>Delete event</Button>
                 </div>}
             </div>
-        </Popup>
+        </Popup> */}
+        <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+            
+        >
+            {body}
+        </Modal>
       </div>
     ); 
 }
