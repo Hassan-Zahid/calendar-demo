@@ -139,13 +139,16 @@ const AppointmentFields = (props) => {
       </Grid>
       <Grid item xs={1} />
       <Grid item xs={7}>
-        <FormControl fullWidth className={classes.margin} variant="outlined">
-          <Checkbox
-            checked="true"
-            // onChange={handleChange}
-            name="checkedB"
-            color="primary"
-          />
+        <FormControl fullWidth className={classes.margin} >
+          <div style = {{alignSelf:'center'}}>
+            <Checkbox
+              checked="true"
+              // onChange={handleChange}
+              name="checkedB"
+              color="primary"
+              Style={{width:'fit-content'}}
+            />
+          </div>
         </FormControl>
       </Grid>
 
