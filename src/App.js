@@ -1,5 +1,5 @@
 import React from "react";
-import InvoiceModal from "./components/InvoiceModal"
+import AppointmentModal from "./components/AppointmentModal"
 import { Eventcalendar, getJson, snackbar, Popup, Button, Input, Textarea, Switch, Datepicker, toast, setOptions, CalendarNav, SegmentedGroup, SegmentedItem, CalendarPrev, CalendarToday, CalendarNext } from '@mobiscroll/react';
 import "@mobiscroll/react/dist/css/mobiscroll.min.css";
 import { makeStyles } from "@material-ui/core/styles";
@@ -20,6 +20,7 @@ import {
     Chip,
     Typography,
   } from '@material-ui/core';
+import SettingsIcon from '@material-ui/icons/Settings';
 import Card from '@material-ui/core/Card';
 import {Modal} from "@material-ui/core";
 import './App.css';
@@ -64,8 +65,10 @@ function getModalStyle() {
 
 const useStyles = makeStyles({
     root: {
-      minWidth: 500,
-      margin:30
+      maxWidth: "1480px",
+      margin: 30,
+      marginLeft: '60px',
+      marginRight: '60px'
     },
     bullet: {
       display: "inline-block",
@@ -113,9 +116,7 @@ const defaultEvents = [{
     title: 'Stakeholder mtg.',
     color: '#d00f0f'
 }];
-const viewSettings = {
-    schedule: { type: 'week' }
-};
+
 const responsivePopup = {
     medium: {
         display: 'anchored',
@@ -157,14 +158,7 @@ function App() {
         setOpen(false);
     };
 
-    // const body = (
-    // <div style={modalStyle} className={classes.paper}>
-    //     <h2 id="simple-modal-title">Text in a modal</h2>
-    //     <p id="simple-modal-description">
-    //         Material UI Modal.
-    //     </p>
-    // </div>
-    // );
+ 
 
 
     const saveEvent = React.useCallback(() => {
@@ -346,7 +340,7 @@ function App() {
 
     const [calView, setCalView] = React.useState(
         {
-            calendar: { labels: true }
+            schedule: { type: 'week' }
         }
     );
 
@@ -402,7 +396,10 @@ function App() {
             <Card className={classes.root} variant="outlined">
                 <AppointmentsHeader>
                     <HeadingWrapper className="title">Appointments</HeadingWrapper>
-                    <InvoiceModal/>
+                    <div>
+                        <AppointmentModal open={open} setOpen={setOpen}/>
+                        <button style={{marginLeft:'5px'}}><SettingsIcon style={{width:'20px', height: '25px'}}/></button>
+                    </div>
                 </AppointmentsHeader>
                 <Eventcalendar
                 theme="ios" 
@@ -411,7 +408,6 @@ function App() {
                 dragToResize={true}
                 data={myEvents}
                 view={view}
-                view={viewSettings}
                 clickToCreate="double"
                 dragToCreate={true}
                 selectedDate={mySelectedDate}
@@ -464,15 +460,9 @@ function App() {
                         </div>}
                     </div>
                 </Popup> */}
-                {/* <Modal
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description"
-                    
-                >
-                    {body} */}
+              
             </Card>
+            
         </div>
     ); 
 }

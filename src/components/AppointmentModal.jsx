@@ -25,9 +25,8 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from '../config/material-ui/theme';
 import Draggable from 'react-draggable';
 import LiveSearch from './LiveSearch';
-import InvoiceDetails from './InvoiceDetails';
 import Alert from '@material-ui/lab/Alert';
-import InvoiceForm from './InvoiceForm';
+import AppointmentFields from './AppointmentFields';
 
 // const baseUrl = `${location.protocol}//${location.host}`;
 
@@ -105,8 +104,6 @@ const AlertWrapper = styled(Box)({
   marginTop: 20,
 });
 
-const Button = styled(MUIButton)({});
-
 const StyledAlert = withStyles({
   root: { fontSize: '14px' },
   filledWarning: {
@@ -121,9 +118,19 @@ const NewInvoiceBtn = withStyles({
   root: {
     fontSize: '13px',
     fontFamily: '"Lato", "Helvetica Neue", Helvetica, Arial, sans-serif',
+    height: '35px',
+    textTransform:'none',
+    marginBottom: '12px'
 
   },
-})(Button);
+})(MUIButton);
+
+const Buttons = withStyles({
+  root: {
+    fontFamily: '"Lato", "Helvetica Neue", Helvetica, Arial, sans-serif',
+    textTransform:'none'
+  },
+})(MUIButton);
 
 const DialogContent = styled(MuiDialogContent)({
   minHeight: 100,
@@ -140,9 +147,9 @@ function PaperComponent(props) {
   );
 }
 
-export default function InvoiceModal(props) {
-  const { title, invoice_id, job_id } = props;
-  const [open, setOpen] = useState(false);
+export default function AppointmentModal(props) {
+  const { title, invoice_id, job_id, open, setOpen } = props;
+  
   const [selectedInvoiceId, setSelectedInvoiceId] = useState(null);
   const [selectedJob, setSelectedJob] = useState(false);
   const [selectedJobID, setSelectedJobID] = useState(null);
@@ -278,7 +285,7 @@ export default function InvoiceModal(props) {
           color="primary"
           onClick={handleClickOpen}
         >
-          <AddOutlinedIcon/>
+          <AddOutlinedIcon style={{width:'20px', height: '20px'}}/>
           Add An Appointment
         </NewInvoiceBtn>
 
@@ -321,7 +328,7 @@ export default function InvoiceModal(props) {
                       
 
                     <React.Fragment>
-                      <InvoiceForm
+                      <AppointmentFields
                         selectedJob={selectedJob}
                         setWarning={setWarning}
                         setSelectedJob={setSelectedJob}
@@ -329,24 +336,24 @@ export default function InvoiceModal(props) {
                     </React.Fragment>
                 </Grid>
                   <CustomActionBar>
-                    <NewInvoiceBtn onClick={handleClose} color="primary">
+                    <Buttons onClick={handleClose} color="primary">
                       Cancel
-                    </NewInvoiceBtn>
+                    </Buttons>
 
-                      {/* <NewInvoiceBtn
+                      {/* <Buttons
                         // onClick={handleSubmit}
                         color="primary"
                         variant="contained"
                       >
                         Update Invoice
-                      </NewInvoiceBtn> */}
-                      <NewInvoiceBtn
+                      </Buttons> */}
+                      <Buttons
                         // onClick={handleSubmit}
                         color="primary"
                         variant="contained"
                       >
                         Save
-                      </NewInvoiceBtn>
+                      </Buttons>
                   </CustomActionBar>
               </DialogContent>
             </>
@@ -355,12 +362,12 @@ export default function InvoiceModal(props) {
   );
 }
 
-InvoiceModal.propTypes = {
+AppointmentModal.propTypes = {
   name: PropTypes.string.isRequired, // this is passed from the Rails view
   title: PropTypes.string.isRequired, // this is passed from the Rails view
 };
 
-InvoiceModal.defaultProps = {
+AppointmentModal.defaultProps = {
   name: 'Editing Invoice',
   title: 'content',
 };

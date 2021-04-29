@@ -1,9 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
-import CurrencyTextField from '@unicef/material-ui-currency-textfield';
 import Checkbox from '@material-ui/core/Checkbox';
-import TextField from '@material-ui/core/TextField';
 import {
   Grid,
   Box,
@@ -49,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const InvoiceForm = (props) => {
+const AppointmentFields = (props) => {
   const classes = useStyles();
   const { selectedJob, setSelectedJob, setWarning } = props;
 
@@ -168,4 +166,4 @@ const InvoiceForm = (props) => {
   );
 };
 
-export default InvoiceForm;
+export default AppointmentFields;
