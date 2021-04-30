@@ -125,12 +125,7 @@ const NewInvoiceBtn = withStyles({
   },
 })(MUIButton);
 
-const Buttons = withStyles({
-  root: {
-    fontFamily: '"Lato", "Helvetica Neue", Helvetica, Arial, sans-serif',
-    textTransform:'none'
-  },
-})(MUIButton);
+const Button = withStyles({})(MUIButton);
 
 const DialogContent = styled(MuiDialogContent)({
   minHeight: 100,
@@ -336,24 +331,24 @@ export default function AppointmentModal(props) {
                     </React.Fragment>
                 </Grid>
                   <CustomActionBar>
-                    <Buttons onClick={handleClose} color="primary">
+                    <Button onClick={handleClose} color="primary">
                       Cancel
-                    </Buttons>
+                    </Button>
 
-                      {/* <Buttons
+                      {/* <Button
                         // onClick={handleSubmit}
                         color="primary"
                         variant="contained"
                       >
                         Update Invoice
-                      </Buttons> */}
-                      <Buttons
+                      </Button> */}
+                      <Button
                         // onClick={handleSubmit}
                         color="primary"
                         variant="contained"
                       >
                         Save
-                      </Buttons>
+                      </Button>
                   </CustomActionBar>
               </DialogContent>
             </>
