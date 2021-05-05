@@ -1,10 +1,9 @@
 import React from "react";
 import AppointmentModal from "./components/AppointmentModal"
-import { Eventcalendar, getJson, snackbar, Popup, Button, Input, Textarea, Switch, Datepicker, toast, setOptions, CalendarNav, SegmentedGroup, SegmentedItem, CalendarPrev, CalendarToday, CalendarNext } from '@mobiscroll/react';
+import { Eventcalendar, getJson, snackbar, Popup, Input, Textarea, Switch, Datepicker, toast, setOptions, CalendarNav, SegmentedGroup, SegmentedItem, CalendarPrev, CalendarToday, CalendarNext } from '@mobiscroll/react';
 import "@mobiscroll/react/dist/css/mobiscroll.min.css";
 import { makeStyles } from "@material-ui/core/styles";
 import {
-    Button as MUIButton,
     Tooltip,
     Dialog,
     Grid,
@@ -20,6 +19,7 @@ import {
     Chip,
     Typography,
   } from '@material-ui/core';
+import Button from "@material-ui/core/Button";
 import SettingsIcon from '@material-ui/icons/Settings';
 import Card from '@material-ui/core/Card';
 import {Modal} from "@material-ui/core";
@@ -370,35 +370,43 @@ function App() {
     }
     
     const customWithNavButtons = () => {
-        return <React.Fragment>
-            <CalendarNav className="cal-header-nav" />
-            <div className="cal-header-picker">
-                <SegmentedGroup value={view} onChange={changeView}>
-                    <SegmentedItem value="month" style="height:50px">
-                        Month
-                    </SegmentedItem>
-                    <SegmentedItem value="week" style="height:50px">
-                        Week
-                    </SegmentedItem>
-                    <SegmentedItem value="day" style="height:50px">
-                        Day
-                    </SegmentedItem>
-                </SegmentedGroup>
-            </div>
-            <CalendarPrev className="cal-header-prev" />
-            <CalendarToday className="cal-header-today" />
-            <CalendarNext className="cal-header-next" />
-        </React.Fragment>;
+      return <React.Fragment>
+        <CalendarNav className="cal-header-nav" />
+        <div className="cal-header-picker">
+          <SegmentedGroup value={view} onChange={changeView}>
+            <SegmentedItem value="month" style={{height:"50px"}}>
+              <div style={{width:"60px", height:"30px", marginTop:"4px"}}>
+                Month
+              </div>
+            </SegmentedItem>
+            <SegmentedItem value="week" >
+              <div style={{width:"60px", height:"30px", marginTop:"4px"}}>
+                Week
+              </div>
+            </SegmentedItem>
+            <SegmentedItem value="day" style={{width:"80px"}}>
+              <div style={{width:"60px", height:"30px", marginTop:"4px"}}>
+                Day
+              </div>
+            </SegmentedItem>
+          </SegmentedGroup>
+        </div>
+        <div style= {{width: '100%',display: 'flex',justifyContent: 'flex-end'}}>
+          <CalendarPrev className="cal-header-prev" />
+          <CalendarToday className="cal-header-today" />
+          <CalendarNext className="cal-header-next" />
+        </div>
+      </React.Fragment>;
     }
 
     return (
-        <div className="md-switching-view-cont">
+        <div className="md-switching-view-cont" style={{background: "#CCCCCC"}}>
             <Card className={classes.root} variant="outlined">
                 <AppointmentsHeader>
                     <HeadingWrapper className="title">Appointments</HeadingWrapper>
                     <div>
                         <AppointmentModal open={open} setOpen={setOpen}/>
-                        <button style={{marginLeft:'5px'}}><SettingsIcon style={{width:'20px', height: '25px'}}/></button>
+                        <Button color="primary" style={{marginLeft:'5px', marginBottom:'10px'}}><SettingsIcon style={{width:"20px", height: '25px'}}/></Button>
                     </div>
                 </AppointmentsHeader>
                 <Eventcalendar
@@ -418,49 +426,36 @@ function App() {
                 onEventUpdated={onEventUpdated}
                 renderHeader={customWithNavButtons}
                 height={750}
-                // width ={1550}
                 view={calView}
                 />
-                {/* <Popup
-                    display="bottom"
-                    fullScreen={true}
-                    contentPadding={false}
-                    headerText={headerText}
-                    anchor={anchor}
-                    buttons={popupButtons}
-                    isOpen={isOpen}
-                    onClose={onClose}
-                    responsive={responsivePopup}
-                >
-                    <div className="mbsc-form-group">
-                        <Input label="Title" value={popupEventTitle} onChange={titleChange} />
-                        <Textarea label="Description" value={popupEventDescription} onChange={descriptionChange} />
-                    </div>
-                    <div className="mbsc-form-group">
-                        <Switch label="All-day" checked={popupEventAllDay} onChange={allDayChange} />
-                        <Input ref={startRef} label="Starts" />
-                        <Input ref={endRef} label="Ends" />
-                        <Datepicker
-                            select="range"
-                            controls={controls}
-                            touchUi={true}
-                            startInput={start}
-                            endInput={end}
-                            showRangeLabels={false}
-                            responsive={responsiveOptions}
-                            onChange={dateChange}
-                            value={popupEventDate}
-                        />
-                        <SegmentedGroup onChange={statusChange}>
-                            <SegmentedItem value="busy" checked={popupEventStatus === 'busy'}>Show as busy</SegmentedItem>
-                            <SegmentedItem value="free" checked={popupEventStatus === 'free'}>Show as free</SegmentedItem>
-                        </SegmentedGroup>
-                        {isEdit && <div className="mbsc-button-group">
-                            <Button className="mbsc-button-block" color="danger" variant="outline" onClick={onDeleteClick}>Delete event</Button>
-                        </div>}
-                    </div>
-                </Popup> */}
-              
+                {/*
+                <div className="mbsc-form-group">
+                    <Input label="Title" value={popupEventTitle} onChange={titleChange} />
+                    <Textarea label="Description" value={popupEventDescription} onChange={descriptionChange} />
+                </div>
+                <div className="mbsc-form-group">
+                    <Switch label="All-day" checked={popupEventAllDay} onChange={allDayChange} />
+                    <Input ref={startRef} label="Starts" />
+                    <Input ref={endRef} label="Ends" />
+                    <Datepicker
+                        select="range"
+                        controls={controls}
+                        touchUi={true}
+                        startInput={start}
+                        endInput={end}
+                        showRangeLabels={false}
+                        responsive={responsiveOptions}
+                        onChange={dateChange}
+                        value={popupEventDate}
+                    />
+                    <SegmentedGroup onChange={statusChange}>
+                        <SegmentedItem value="busy" checked={popupEventStatus === 'busy'}>Show as busy</SegmentedItem>
+                        <SegmentedItem value="free" checked={popupEventStatus === 'free'}>Show as free</SegmentedItem>
+                    </SegmentedGroup>
+                    {isEdit && <div className="mbsc-button-group">
+                        <Button className="mbsc-button-block" color="danger" variant="outline" onClick={onDeleteClick}>Delete event</Button>
+                    </div>}
+                </div> */}
             </Card>
             
         </div>

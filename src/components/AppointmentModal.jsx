@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import * as PropTypes from 'prop-types';
 import {
-  Button as MUIButton,
+  Button,
   Tooltip,
   Dialog,
   Grid,
@@ -11,16 +11,13 @@ import {
   withStyles,
   CircularProgress,
   DialogContent as MuiDialogContent,
-  DialogContentText,
   DialogTitle,
   Paper,
-  Chip,
   Typography,
 } from '@material-ui/core';
-
+import AddIcon from '@material-ui/icons/Add';
 import { JobStat } from './JobStat';
 import EditIcon from '@material-ui/icons/Edit';
-import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from '../config/material-ui/theme';
 import Draggable from 'react-draggable';
@@ -28,13 +25,12 @@ import LiveSearch from './LiveSearch';
 import Alert from '@material-ui/lab/Alert';
 import AppointmentFields from './AppointmentFields';
 
-// const baseUrl = `${location.protocol}//${location.host}`;
-
 const CustomActionBar = styled(Box)({
   marginTop: 40,
   display: 'flex',
   justifyContent: 'flex-end',
 });
+
 
 const CircularProgressWrapper = styled(Box)({
   width: '100%',
@@ -99,6 +95,15 @@ const EditBtnWrapper = styled(Typography)({
   },
 });
 
+const StyledAddBtn = withStyles({
+  root:{
+    textTransform: "none", 
+    marginBottom:12, 
+    height:"35px", 
+    fontSize:"13px"
+  }
+})(Button);
+
 const AlertWrapper = styled(Box)({
   marginBottom: 20,
   marginTop: 20,
@@ -113,19 +118,6 @@ const StyledAlert = withStyles({
   },
   icon: { color: '#f8ac59' },
 })(Alert);
-
-const NewInvoiceBtn = withStyles({
-  root: {
-    fontSize: '13px',
-    fontFamily: '"Lato", "Helvetica Neue", Helvetica, Arial, sans-serif',
-    height: '35px',
-    textTransform:'none',
-    marginBottom: '12px'
-
-  },
-})(MUIButton);
-
-const Button = withStyles({})(MUIButton);
 
 const DialogContent = styled(MuiDialogContent)({
   minHeight: 100,
@@ -163,91 +155,6 @@ export default function AppointmentModal(props) {
     setOpen(false);
   };
 
-  // useEffect(() => {
-  //   if (selectedJobID) {
-  //     (async () => {
-  //       const response = await fetch(
-  //         `${baseUrl}/jobs/get_job_details_api?job=${selectedJobID}`
-  //       );
-  //       const secondData = await response.json();
-  //       setSelectedJob(secondData.data);
-  //     })();
-  //   }
-  // }, [selectedJobID]);
-
-  // useEffect(() => {
-  //   if (selectedInvoiceId) {
-  //     (async () => {
-  //       setLoading(true);
-  //       const response = await fetch(
-  //         `${baseUrl}/jobs/get_job_details_api?invoice=${selectedInvoiceId}`
-  //       );
-  //       const data = await response.json();
-  //       setSelectedJob(data.data);
-  //       setLoading(false);
-  //     })();
-  //   }
-  // }, [selectedInvoiceId]);
-
-  // const handleSubmit = () => {
-  //   if (
-  //     parseInt(selectedJob.invoices.remaining_amount) == 0 ||
-  //     selectedJob.invoice.amount == 0
-  //   ) {
-  //     alert.error("Can't create invoice with $0.00 amount");
-  //   } else if (
-  //     parseInt(selectedJob.invoice.amount) <=
-  //     parseInt(selectedJob.invoices.remaining_amount)
-  //   ) {
-  //     setWarning('');
-  //     if (selectedInvoiceId) {
-  //       ajax({
-  //         url: `${baseUrl}/update_invoice/${selectedInvoiceId}`,
-  //         method: 'PUT',
-  //         data: {
-  //           amount: selectedJob.invoice.amount,
-  //           description: selectedJob.invoice.description,
-  //         },
-  //         success: (data) => {
-  //           if (data) {
-  //             alert.error(data.error);
-  //           } else {
-  //             window.location.reload();
-  //             setOpen(false);
-  //           }
-  //         },
-  //         fail: (response) => {
-  //           alert.error(response.error);
-  //         },
-  //       });
-  //     } else {
-  //       $.ajax({
-  //         url: `${baseUrl}/jobs/${selectedJobID}/send_invoice_api`,
-  //         method: 'POST',
-  //         data: {
-  //           amount: selectedJob.invoice.amount,
-  //           description: selectedJob.invoice.description,
-  //         },
-  //         success: (data) => {
-  //           if (data) {
-  //             alert.error(data.error);
-  //           } else {
-  //             window.location.reload();
-  //             setOpen(false);
-  //           }
-  //         },
-  //         fail: (response) => {
-  //           alert.error(response.error);
-  //         },
-  //       });
-  //     }
-  //   } else {
-  //     setWarning(
-  //       `Please enter Amount less than ${selectedJob.invoices.remaining_amount}`
-  //     );
-  //   }
-  // };
-
   return (
     <ThemeProvider theme={theme}>
       {invoice_id && (
@@ -274,15 +181,15 @@ export default function AppointmentModal(props) {
       
         {/* <JobInvoiceTyp onClick={handleClickOpen}>New Invoice</JobInvoiceTyp> */}
 
-      
-        <NewInvoiceBtn
+        <StyledAddBtn
           variant="contained"
           color="primary"
+          size="small"
           onClick={handleClickOpen}
+          startIcon={<AddIcon style={{fontSize:25}}/>}
         >
-          <AddOutlinedIcon style={{width:'20px', height: '20px'}}/>
-          Add An Appointment
-        </NewInvoiceBtn>
+          Add an Appointment
+        </StyledAddBtn>
 
       
         <Dialog
@@ -319,36 +226,25 @@ export default function AppointmentModal(props) {
                     }
                   />
                   <MarginWrapper>Leave blank to create an availability</MarginWrapper>
-
-                      
-
-                    <React.Fragment>
-                      <AppointmentFields
-                        selectedJob={selectedJob}
-                        setWarning={setWarning}
-                        setSelectedJob={setSelectedJob}
-                      />
-                    </React.Fragment>
+                  <React.Fragment>
+                    <AppointmentFields
+                      selectedJob={selectedJob}
+                      setWarning={setWarning}
+                      setSelectedJob={setSelectedJob}
+                    />
+                  </React.Fragment>
                 </Grid>
                   <CustomActionBar>
                     <Button onClick={handleClose} color="primary">
                       Cancel
                     </Button>
-
-                      {/* <Button
-                        // onClick={handleSubmit}
-                        color="primary"
-                        variant="contained"
-                      >
-                        Update Invoice
-                      </Button> */}
-                      <Button
-                        // onClick={handleSubmit}
-                        color="primary"
-                        variant="contained"
-                      >
-                        Save
-                      </Button>
+                    <Button
+                      // onClick={handleSubmit}
+                      color="primary"
+                      variant="contained"
+                    >
+                      Save
+                    </Button>
                   </CustomActionBar>
               </DialogContent>
             </>
