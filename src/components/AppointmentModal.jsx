@@ -235,11 +235,16 @@ export default function AppointmentModal(props) {
                   </React.Fragment>
                 </Grid>
                   <CustomActionBar>
-                    <Button onClick={handleClose} color="primary">
+                    <Button 
+                      onClick={handleClose} 
+                      color="primary"
+                      style={{fontSize:"14px", fontWeight:"bold"}}
+                    >
                       Cancel
                     </Button>
                     <Button
                       // onClick={handleSubmit}
+                      style={{fontSize:"14px", fontWeight:"bold"}}
                       color="primary"
                       variant="contained"
                     >

@@ -19,6 +19,8 @@ import {
     Chip,
     Typography,
   } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/core/styles';
+import { theme } from './config/material-ui/theme';
 import Button from "@material-ui/core/Button";
 import SettingsIcon from '@material-ui/icons/Settings';
 import Card from '@material-ui/core/Card';
@@ -400,6 +402,7 @@ function App() {
     }
 
     return (
+      <ThemeProvider theme={theme}>
         <div className="md-switching-view-cont" style={{background: "#CCCCCC"}}>
             <Card className={classes.root} variant="outlined">
                 <AppointmentsHeader>
@@ -459,6 +462,7 @@ function App() {
             </Card>
             
         </div>
+      </ThemeProvider>
     ); 
 }
 
