@@ -1,20 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import {TextField, withStyles} from '@material-ui/core';
+import {TextField, withStyles, styled, Typography} from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
+import { JobStat } from './JobStat';
+
 import CircularProgress from '@material-ui/core/CircularProgress';
-
-const StyledAutocomplete = withStyles({
-    paper:{
-        fontSize:16
-    },
-    root:{
-        '& .MuiInputBase-input':{ fontSize:16}
-    }
-})(Autocomplete)
-
-
 
 export default function LiveSearch(props) {
   const { selectedJob, selectedItem, onChange, apiEndPoint } = props;
@@ -47,7 +38,8 @@ export default function LiveSearch(props) {
   }, [selectedJob]);
 
   return (
-    <StyledAutocomplete
+    <Autocomplete
+
       options={options}
       getOptionLabel={(option) => option.name}
       onChange={(e, reason) => {
@@ -86,7 +78,8 @@ export default function LiveSearch(props) {
       renderInput={(params) => (
         <TextField
           {...params}
-          {...(!selectedItem && { label: 'Type and hit enter to search' })}
+          {...(!selectedItem && {label:"Select an Option"})}
+          size = "small"
           autoFocus={!open}
           onChange={(e) => setSearchTerm(e.target.value)}
           variant="outlined"

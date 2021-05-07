@@ -22,28 +22,37 @@ const TextWrapper = styled(Box)({
   '& > p': {
     color: '#333333',
     fontSize: 16,
+    fondtWeight: 'bold'
   },
 });
 
+const StyledCheckBox = styled(Checkbox)({
+  padding:0,
+  marginTop:5,
+  marginBottom:5
+});
+
 const StyledOutlinedInput = withStyles({
+  root: {
+    maxWidth: 300, height: 40
+  },
   input: {
-    fontSize: 16,
-    marginBottom: 30,
-    marginTop: 30,
+    fontSize: 16
   },
 })(OutlinedInput);
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    flexWrap: 'wrap',
+    flexWrap: 'wrap'
   },
   margin: {
-    marginBottom: 25,
-    marginTop: 25,
+    marginBottom: 5,
+    marginTop: 5,
+    minWidth:'75%'
   },
   textField: {
-    width: '25ch',
+    maxWidth: '25ch',
   },
 }));
 
@@ -52,18 +61,14 @@ const AppointmentFields = (props) => {
   const { selectedJob, setSelectedJob, setWarning } = props;
 
   return (
-    <Grid container>
-      
+    <Grid container spacing={1}>
       <Grid item xs={4}>
-        <TextWrapper>
-          <Typography>Users</Typography>
-        </TextWrapper>
+        <TextWrapper>Users</TextWrapper>
       </Grid>
       <Grid item xs={1} />
       <Grid item xs={7}>
-        <FormControl fullWidth className={classes.margin} variant="outlined">
+        <FormControl className={classes.margin} variant="outlined">
             <StyledOutlinedInput
-              style={{ width: 400, height: 50}}
               size="large"
               id="outlined-adornment-amount"
             />
@@ -71,15 +76,12 @@ const AppointmentFields = (props) => {
       </Grid>
 
       <Grid item xs={4}>
-        <TextWrapper>
-          <Typography>Service Areas</Typography>
-        </TextWrapper>
+        <TextWrapper>Service Areas</TextWrapper>
       </Grid>
       <Grid item xs={1} />
       <Grid item xs={7}>
-        <FormControl fullWidth className={classes.margin} variant="outlined">
+        <FormControl className={classes.margin} variant="outlined">
           <StyledOutlinedInput
-            style={{ width: 400, height: 50}}
             size="large"
             id="outlined-adornment-amount"
           />
@@ -87,83 +89,69 @@ const AppointmentFields = (props) => {
       </Grid>
 
       <Grid item xs={4}>
-        <TextWrapper>
-          <Typography>Start time</Typography>
-        </TextWrapper>
+        <TextWrapper>Start time</TextWrapper>
       </Grid>
       <Grid item xs={1} />
       <Grid item xs={7}>
-        <FormControl fullWidth className={classes.margin} variant="outlined">
-          <form className={classes.container} noValidate>
+        <FormControl className={classes.margin} style={{width:'100%'}} variant="outlined">
           <StyledOutlinedInput
-            style={{ width: 400, height: 50}}
             size="large"
             id="outlined-adornment-amount"
             type="datetime-local"
             defaultValue="2017-05-24T10:30"
-            className={classes.textField}
             InputLabelProps={{
               shrink: true,
             }}
           />
-          </form>
         </FormControl>
       </Grid>
 
       <Grid item xs={4}>
-        <TextWrapper>
-          <Typography>End time</Typography>
-        </TextWrapper>
+        <TextWrapper>End time</TextWrapper>
       </Grid>
       <Grid item xs={1} />
       <Grid item xs={7}>
-          <form className={classes.container} noValidate>
+        <FormControl className={classes.margin} style={{width:'100%'}} variant="outlined">
             <StyledOutlinedInput
-              style={{ width: 400, height: 50}}
-              size="large"
+              size="sm"
               id="outlined-adornment-amount"
               type="datetime-local"
               defaultValue="2017-05-24T10:30"
-              className={classes.textField}
               InputLabelProps={{
                 shrink: true,
               }}
             />
-          </form>
-      </Grid>
-
-      <Grid item xs={4}>
-        <TextWrapper>
-          <Typography>Recurring</Typography>
-        </TextWrapper>
-      </Grid>
-      <Grid item xs={1} />
-      <Grid item xs={7}>
-        <FormControl fullWidth className={classes.margin} >
-          <div style = {{alignSelf:'center'}}>
-            <Checkbox
-              checked="true"
-              // onChange={handleChange}
-              name="checkedB"
-              color="primary"
-              Style={{width:'fit-content'}}
-            />
-          </div>
         </FormControl>
       </Grid>
 
       <Grid item xs={4}>
-        <TextWrapper>
-          <Typography> New Note</Typography>
-        </TextWrapper>
+        <TextWrapper>Recurring</TextWrapper>
       </Grid>
       <Grid item xs={1} />
       <Grid item xs={7}>
-        <StyledOutlinedInput
-          style={{ width: 300, height: 100 }}
-          size="large"
-          id="outlined-adornment-amount"
-        />
+        <FormControl className={classes.margin} variant="outlined">
+          <StyledCheckBox
+            checked="true"
+            size="small"
+            // onChange={handleChange}
+            name="checkedB"
+            color="primary"
+          />
+        </FormControl>
+      </Grid>
+
+      <Grid item xs={4}>
+        <TextWrapper>New Note</TextWrapper>
+      </Grid>
+      <Grid item xs={1} />
+      <Grid item xs={7}>
+        <FormControl className={classes.margin} variant="outlined">
+          <StyledOutlinedInput
+            style={{ maxWidth: 300, height: 100}}
+            size="large"
+            id="outlined-adornment-amount"
+          />
+        </FormControl>
       </Grid>
     </Grid>
   );

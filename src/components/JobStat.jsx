@@ -9,7 +9,9 @@ import {
 
 const StyledDialogContentText = withStyles({
   root: {
-    marginBottom: 5,
+    maxWidth:300,
+    height:30,
+    marginBottom: 3,
     fontSize: 16,
   },
 })(DialogContentText);
@@ -30,16 +32,18 @@ const TextWrapper = styled(Box)({
 export const JobStat = ({ label, content }) => {
   return (
     <React.Fragment>
+    <Grid container spacing={1} style={{marginBottom:15}}>
       <Grid item xs={4}>
-        <TextWrapper>
-          <StyledDialogContentText>{label}</StyledDialogContentText>
-        </TextWrapper>
-      </Grid>
-      <Grid item xs={1} />
-      <Grid item xs={7}>
-        {' '}
-        <StyledDialogContentText>{content}</StyledDialogContentText>
-      </Grid>
+          <TextWrapper>
+            {label}
+          </TextWrapper>
+        </Grid>
+        <Grid item xs={1} />
+        <Grid item xs={7}>
+          {' '}
+          <StyledDialogContentText>{content}</StyledDialogContentText>
+        </Grid>
+    </Grid>
     </React.Fragment>
   );
 };

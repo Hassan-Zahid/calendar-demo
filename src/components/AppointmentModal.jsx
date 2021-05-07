@@ -15,15 +15,18 @@ import {
   Paper,
   Typography,
 } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { ThemeProvider, useTheme } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import { JobStat } from './JobStat';
 import EditIcon from '@material-ui/icons/Edit';
-import { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from '../config/material-ui/theme';
 import Draggable from 'react-draggable';
 import LiveSearch from './LiveSearch';
 import Alert from '@material-ui/lab/Alert';
 import AppointmentFields from './AppointmentFields';
+import { getByPlaceholderText } from '@testing-library/dom';
 
 const CustomActionBar = styled(Box)({
   marginTop: 40,
@@ -40,12 +43,14 @@ const CircularProgressWrapper = styled(Box)({
 
 const NameWrapper = styled(Box)({
   fontSize: '18px',
+  fontWeight:'bold',
+  display: 'flex',
+  justifyContent: 'space-between'
 });
 
 const MarginWrapper = styled(Box)({
   height: 25,
-  textAlign: 'end',
-  marginBottom:'20px',
+  marginBottom:'30px',
   width: '100%',
 });
 
@@ -67,8 +72,8 @@ const JobInvoiceTyp = styled(Typography)({
 });
 
 const Paragraph = styled(Typography)({
-  fontSize: '50px',
-  float: 'right'
+  color:'#757575',
+  fontSize:15
 });
 
 
@@ -129,7 +134,7 @@ function PaperComponent(props) {
       handle="#draggable-dialog-title"
       cancel={'[class*="MuiDialogContent-root"]'}
     >
-      <Paper {...props} style={{ maxWidth: '750px', minWidth: 750 }} />
+      <Paper {...props} style={{ maxWidth:750, margin:0, minWidth:'40%'}} />
     </Draggable>
   );
 }
@@ -142,6 +147,9 @@ export default function AppointmentModal(props) {
   const [selectedJobID, setSelectedJobID] = useState(null);
   const [loading, setLoading] = useState(false);
   const [warning, setWarning] = useState('');
+
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -193,13 +201,16 @@ export default function AppointmentModal(props) {
 
       
         <Dialog
+          fullScreen={fullScreen}
           open={open}
           onClose={handleClose}
           PaperComponent={PaperComponent}
           aria-labelledby="draggable-dialog-title"
         >
           <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
-            <NameWrapper>New Appointment</NameWrapper>
+            <NameWrapper>New Appointment
+              <Button onClick={handleClose} color="primary"><CloseIcon/></Button>
+            </NameWrapper>
           </DialogTitle>
           
             {/* <DialogContent>
@@ -209,11 +220,12 @@ export default function AppointmentModal(props) {
             </DialogContent> */}
             <>
               <DialogContent dividers>
-                <Grid container>
+                <Grid container spacing={1} >
                   <JobStat
                     label={'Active lead'}
                     content={
                       <LiveSearch
+                        // Placeholder="hamza"
                         selectedJob={selectedJob}
                         onChange={setSelectedJobID}
                         selectedItem={
@@ -225,7 +237,6 @@ export default function AppointmentModal(props) {
                       />
                     }
                   />
-                  <MarginWrapper>Leave blank to create an availability</MarginWrapper>
                   <React.Fragment>
                     <AppointmentFields
                       selectedJob={selectedJob}
@@ -234,6 +245,7 @@ export default function AppointmentModal(props) {
                     />
                   </React.Fragment>
                 </Grid>
+                
                   <CustomActionBar>
                     <Button 
                       onClick={handleClose} 
